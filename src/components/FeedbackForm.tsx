@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import RatingSelect from './RatingSelect'
 import Button from './shared/Button'
 import Card from './shared/Card'
 
@@ -6,6 +7,7 @@ interface IFeedbackFormProps {}
 
 const FeedbackForm: React.FC<IFeedbackFormProps> = ({}) => {
   const [text, setText] = useState<string>('')
+  const [rating, setRating] = useState<number>(10)
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true)
   const [message, setMessage] = useState<string | null>('')
 
@@ -25,11 +27,15 @@ const FeedbackForm: React.FC<IFeedbackFormProps> = ({}) => {
     setText(e.currentTarget.value)
   }
 
+  const handleSelectRating = (rating: number) => {
+    setRating(rating)
+  }
+
   return (
     <Card>
       <form>
         <h2>How would you rate your service with us?</h2>
-        {/* TODO: rating select component */}
+        <RatingSelect select={handleSelectRating} />
         <div className='input-group'>
           <input
             value={text}
