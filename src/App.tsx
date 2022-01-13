@@ -9,7 +9,11 @@ import FeedbackForm from './components/FeedbackForm'
 function App() {
   const [feedback, setFeedback] = useState<IFeedbackData[]>(FeedbackData)
 
-  const onDeleteFeedback = (id: number) => {
+  const onAddFeedback = (newFeedback: IFeedbackData) => {
+    setFeedback([newFeedback, ...feedback])
+  }
+
+  const onDeleteFeedback = (id: string) => {
     if (window.confirm('Are you sure you want to delete this feedback?')) {
       setFeedback(feedback.filter(item => item.id !== id))
     }
@@ -19,7 +23,7 @@ function App() {
     <>
       <Header text='Feedback UI' />
       <div className='container'>
-        <FeedbackForm />
+        <FeedbackForm handleAdd={onAddFeedback} />
         <FeedbackStats feedbacks={feedback} />
         <FeedbackList feedbacks={feedback} handleDelete={onDeleteFeedback} />
       </div>

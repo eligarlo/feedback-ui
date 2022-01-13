@@ -1,5 +1,5 @@
 export interface IFeedbackData {
-  id: number
+  id: string
   rating: number
   text: string
 }
