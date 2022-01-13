@@ -6,8 +6,22 @@ interface IFeedbackFormProps {}
 
 const FeedbackForm: React.FC<IFeedbackFormProps> = ({}) => {
   const [text, setText] = useState<string>('')
+  const [btnDisabled, setBtnDisabled] = useState<boolean>(true)
+  const [message, setMessage] = useState<string | null>('')
 
   const handleTextChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const textInput = e.currentTarget.value.trim()
+    if (textInput === '') {
+      setBtnDisabled(true)
+      setMessage(null)
+    } else if (textInput !== '' && textInput.length <= 10) {
+      setBtnDisabled(true)
+      setMessage('Text must be at least 10 characters')
+    } else {
+      setBtnDisabled(false)
+      setMessage(null)
+    }
+
     setText(e.currentTarget.value)
   }
 
@@ -23,8 +37,12 @@ const FeedbackForm: React.FC<IFeedbackFormProps> = ({}) => {
             type='text'
             placeholder='Write a review'
           />
-          <Button type='submit'>Send</Button>
+          <Button type='submit' isDisabled={btnDisabled}>
+            Send
+          </Button>
         </div>
+
+        {message && <div className='message'>{message}</div>}
       </form>
     </Card>
   )
