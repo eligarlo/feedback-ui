@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Button from './shared/Button'
 import Card from './shared/Card'
 
 interface IFeedbackFormProps {}
@@ -22,7 +23,7 @@ const FeedbackForm: React.FC<IFeedbackFormProps> = ({}) => {
             type='text'
             placeholder='Write a review'
           />
-          <button type='submit'>Send</button>
+          <Button type='submit'>Send</Button>
         </div>
       </form>
     </Card>
