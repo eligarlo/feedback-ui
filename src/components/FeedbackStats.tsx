@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { IFeedbackData } from '../utils/SharedUtils'
+import { IFeedbackData } from 'utils/SharedUtils'
 
 interface IFeedbackStatsProps {
   feedbacks: IFeedbackData[]

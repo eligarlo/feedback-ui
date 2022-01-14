@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import RatingSelect from './RatingSelect'
-import Button from './shared/Button'
-import Card from './shared/Card'
+import RatingSelect from 'components/RatingSelect'
+import Button from 'components/shared/Button'
+import Card from 'components/shared/Card'
 
 interface IFeedbackFormProps {
   handleAdd: Function

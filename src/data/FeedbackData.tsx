@@ -1,4 +1,4 @@
-import { IFeedbackData } from '../utils/SharedUtils'
+import { IFeedbackData } from 'utils/SharedUtils'
 
 const FeedbackData: IFeedbackData[] = [
   {

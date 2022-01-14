@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaTimes } from 'react-icons/fa'
-import { IFeedbackData } from '../utils/SharedUtils'
-import Card from './shared/Card'
+import { IFeedbackData } from 'utils/SharedUtils'
+import Card from 'components/shared/Card'
 
 interface IFeedbackItemProps {
   feedback: IFeedbackData

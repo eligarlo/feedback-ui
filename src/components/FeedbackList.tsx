@@ -1,7 +1,7 @@
 import React from 'react'
-import FeedbackItem from './FeedbackItem'
-import { IFeedbackData } from '../utils/SharedUtils'
 import { motion, AnimatePresence } from 'framer-motion'
+import FeedbackItem from 'components/FeedbackItem'
+import { IFeedbackData } from 'utils/SharedUtils'
 
 interface IFeedbackListProps {
   feedbacks: IFeedbackData[]

@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import Header from './components/Header'
-import FeedbackList from './components/FeedbackList'
-import FeedbackStats from './components/FeedbackStats'
-import FeedbackData from './data/FeedbackData'
-import { IFeedbackData } from './utils/SharedUtils'
-import FeedbackForm from './components/FeedbackForm'
+import Header from 'components/Header'
+import FeedbackList from 'components/FeedbackList'
+import FeedbackStats from 'components/FeedbackStats'
+import FeedbackData from 'data/FeedbackData'
+import { IFeedbackData } from 'utils/SharedUtils'
+import FeedbackForm from 'components/FeedbackForm'
 
 function App() {
   const [feedback, setFeedback] = useState<IFeedbackData[]>(FeedbackData)
