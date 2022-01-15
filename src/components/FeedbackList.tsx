@@ -1,14 +1,12 @@
 import React from 'react'
+import { useContext } from 'react'
+import FeedbackContext from 'context/feedback/FeedbackContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import FeedbackItem from 'components/FeedbackItem'
-import { IFeedbackData } from 'utils/SharedUtils'
 
-interface IFeedbackListProps {
-  feedbacks: IFeedbackData[]
-  handleDelete: Function
-}
+const FeedbackList: React.FC = () => {
+  const { feedbacks } = useContext(FeedbackContext)
 
-const FeedbackList: React.FC<IFeedbackListProps> = ({ feedbacks, handleDelete }) => {
   if (!feedbacks || feedbacks.length === 0) {
     return <p>No Feedback Yet.</p>
   }
@@ -23,7 +21,7 @@ const FeedbackList: React.FC<IFeedbackListProps> = ({ feedbacks, handleDelete })
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <FeedbackItem key={feedback.id} feedback={feedback} handleDelete={handleDelete} />
+            <FeedbackItem key={feedback.id} feedback={feedback} />
           </motion.div>
         ))}
       </AnimatePresence>

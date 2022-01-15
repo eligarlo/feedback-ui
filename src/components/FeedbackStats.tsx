@@ -1,11 +1,10 @@
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
+import FeedbackContext from 'context/feedback/FeedbackContext'
 import { IFeedbackData } from 'utils/SharedUtils'
 
-interface IFeedbackStatsProps {
-  feedbacks: IFeedbackData[]
-}
+const FeedbackStats: React.FC = () => {
+  const { feedbacks } = useContext(FeedbackContext)
 
-const FeedbackStats: React.FC<IFeedbackStatsProps> = ({ feedbacks }) => {
   // Calculate ratings average
   let average = useMemo(
     () =>

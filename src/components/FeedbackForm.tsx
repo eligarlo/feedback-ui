@@ -1,18 +1,17 @@
 import { useState } from 'react'
+import { useContext } from 'react'
+import FeedbackContext from 'context/feedback/FeedbackContext'
 import { v4 as uuidv4 } from 'uuid'
 import RatingSelect from 'components/RatingSelect'
 import Button from 'components/shared/Button'
 import Card from 'components/shared/Card'
 
-interface IFeedbackFormProps {
-  handleAdd: Function
-}
-
-const FeedbackForm: React.FC<IFeedbackFormProps> = ({ handleAdd }) => {
+const FeedbackForm: React.FC = () => {
   const [text, setText] = useState<string>('')
   const [rating, setRating] = useState<number>(10)
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true)
   const [message, setMessage] = useState<string | null>('')
+  const { onAddFeedback } = useContext(FeedbackContext)
 
   const handleTextChange = (e: React.FormEvent<HTMLInputElement>) => {
     const textInput = e.currentTarget.value.trim()
@@ -43,8 +42,9 @@ const FeedbackForm: React.FC<IFeedbackFormProps> = ({ handleAdd }) => {
         text,
       }
 
-      handleAdd(newFeedback)
+      onAddFeedback && onAddFeedback(newFeedback)
       setText('')
+      setRating(10)
     }
   }
 
