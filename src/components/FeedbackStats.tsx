@@ -8,16 +8,19 @@ const FeedbackStats: React.FC = () => {
   // Calculate ratings average
   let average = useMemo(
     () =>
+      feedbacks &&
       feedbacks.reduce((acc: number, curr: IFeedbackData) => {
         return acc + curr.rating
       }, 0) / feedbacks.length,
     [feedbacks]
   )
 
+  const totalAverage = () => (average && isNaN(average) ? 0 : average && average.toFixed(1))
+
   return (
     <div className='feedback-stats'>
-      <h4>{feedbacks.length} Reviews</h4>
-      <h4>Average Rating: {isNaN(average) ? 0 : average.toFixed(1)}</h4>
+      <h4>{feedbacks && feedbacks.length} Reviews</h4>
+      <h4>Average Rating: {totalAverage()}</h4>
     </div>
   )
 }

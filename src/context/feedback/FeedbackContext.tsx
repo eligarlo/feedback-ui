@@ -1,11 +1,12 @@
-import FeedbackData from 'data/FeedbackData'
-import { createContext, useState } from 'react'
+// import FeedbackData from 'data/FeedbackData'
+import { createContext, useEffect, useState } from 'react'
 import { IFeedbackData } from 'utils/SharedUtils'
 
 // Create the FeedbackContext
 interface IFeedbackContext {
-  feedbacks: IFeedbackData[]
+  feedbacks: IFeedbackData[] | undefined
   feedbackEdit: IFeedbackEdit
+  isLoading: boolean
   onAddFeedback?: (newFeedback: IFeedbackData) => void
   onDeleteFeedback?: (id: string) => void
   onEditFeedback?: (feedback: IFeedbackData) => void
@@ -13,11 +14,13 @@ interface IFeedbackContext {
 }
 
 const defaultState: IFeedbackContext = {
-  feedbacks: FeedbackData,
+  // feedbacks: FeedbackData, // Hard coded data from the frontend
+  feedbacks: [],
   feedbackEdit: {
     feedback: { id: '', rating: 0, text: '' },
     edit: false,
   },
+  isLoading: true,
 }
 
 const FeedbackContext = createContext<IFeedbackContext>(defaultState)
@@ -33,30 +36,43 @@ interface IFeedbackEdit {
 }
 
 export const FeedbackProvider: React.FC<IFeedbackProvider> = ({ children }) => {
-  const [feedbacks, setFeedbacks] = useState<IFeedbackData[]>(defaultState.feedbacks)
-  const [feedbackEdit, setFeedbackEdit] = useState<IFeedbackEdit>({
-    feedback: { id: '', rating: 0, text: '' },
-    edit: false,
-  })
+  // const [feedbacks, setFeedbacks] = useState<IFeedbackData[]>(defaultState.feedbacks) // Hard coded data from the frontend
+  const [feedbacks, setFeedbacks] = useState<IFeedbackData[] | undefined>()
+  const [feedbackEdit, setFeedbackEdit] = useState<IFeedbackEdit>(defaultState.feedbackEdit)
+  const [isLoading, setIsLoading] = useState<boolean>(defaultState.isLoading)
+
+  useEffect(() => {
+    fetchFeedback()
+  }, [])
+
+  // Fetch feedback
+  const fetchFeedback = async () => {
+    const response = await fetch('http://localhost:5000/feedbacks?_so=id%_order=desc')
+    const data = await response.json()
+
+    setFeedbacks(data)
+    setIsLoading(false)
+  }
 
   // Add Feedback
   const onAddFeedback = (newFeedback: IFeedbackData) => {
-    setFeedbacks([newFeedback, ...feedbacks])
+    feedbacks && setFeedbacks([newFeedback, ...feedbacks])
   }
 
   // Delete Feedback
   const onDeleteFeedback = (id: string) => {
     if (window.confirm('Are you sure you want to delete this feedback?')) {
-      setFeedbacks(feedbacks.filter(item => item.id !== id))
+      feedbacks && setFeedbacks(feedbacks.filter(item => item.id !== id))
     }
   }
 
   // Update Feedback
   const onUpdateFeedback = (updatedFeedback: IFeedbackData) => {
     setFeedbacks(
-      feedbacks.map(feedback =>
-        feedback.id === updatedFeedback.id ? { ...feedback, ...updatedFeedback } : feedback
-      )
+      feedbacks &&
+        feedbacks.map(feedback =>
+          feedback.id === updatedFeedback.id ? { ...feedback, ...updatedFeedback } : feedback
+        )
     )
   }
 
@@ -73,6 +89,7 @@ export const FeedbackProvider: React.FC<IFeedbackProvider> = ({ children }) => {
       value={{
         feedbacks,
         feedbackEdit,
+        isLoading,
         onAddFeedback,
         onDeleteFeedback,
         onEditFeedback,
