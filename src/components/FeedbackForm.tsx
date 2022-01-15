@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import FeedbackContext from 'context/feedback/FeedbackContext'
 import { v4 as uuidv4 } from 'uuid'
 import RatingSelect from 'components/RatingSelect'
@@ -11,7 +10,15 @@ const FeedbackForm: React.FC = () => {
   const [rating, setRating] = useState<number>(10)
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true)
   const [message, setMessage] = useState<string | null>('')
-  const { onAddFeedback } = useContext(FeedbackContext)
+  const { feedbackEdit, onAddFeedback, onUpdateFeedback } = useContext(FeedbackContext)
+
+  useEffect(() => {
+    if (feedbackEdit.edit === true) {
+      setBtnDisabled(false)
+      setText(feedbackEdit.feedback.text)
+      setRating(feedbackEdit.feedback.rating)
+    }
+  }, [feedbackEdit])
 
   const handleTextChange = (e: React.FormEvent<HTMLInputElement>) => {
     const textInput = e.currentTarget.value.trim()
@@ -37,12 +44,17 @@ const FeedbackForm: React.FC = () => {
     e.preventDefault()
     if (text.trim().length > 10) {
       const newFeedback = {
-        id: uuidv4(),
+        id: feedbackEdit.edit ? feedbackEdit.feedback.id : uuidv4(),
         rating,
         text,
       }
 
-      onAddFeedback && onAddFeedback(newFeedback)
+      if (feedbackEdit.edit === false) {
+        onAddFeedback && onAddFeedback(newFeedback)
+      } else {
+        onUpdateFeedback && onUpdateFeedback(newFeedback)
+      }
+
       setText('')
       setRating(10)
     }

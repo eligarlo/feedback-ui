@@ -1,11 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import FeedbackContext from 'context/feedback/FeedbackContext'
 
 interface IRatingSelectProps {
-  select: Function
+  select: (rating: number) => void
 }
 
 const RatingSelect: React.FC<IRatingSelectProps> = ({ select }) => {
   const [selected, setSelected] = useState<number>(10)
+  const { feedbackEdit } = useContext(FeedbackContext)
+
+  useEffect(() => {
+    if (feedbackEdit.edit === true) {
+      setSelected(feedbackEdit.feedback.rating)
+    }
+  }, [feedbackEdit])
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setSelected(Number(e.currentTarget.value))
