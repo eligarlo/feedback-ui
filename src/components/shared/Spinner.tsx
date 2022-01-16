@@ -1,4 +1,5 @@
 import spinner from 'components/assets/spinner.gif'
+
 const Spinner: React.FC = () => {
   return (
     <img

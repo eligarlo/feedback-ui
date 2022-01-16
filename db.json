@@ -1,19 +1,10 @@
 {
   "feedbacks": [
     {
-      "rating": 10,
-      "text": "Feedback 1 from db.json.",
-      "id": "1"
-    },
-    {
-      "rating": 7,
-      "text": "Feedback 2 from db.json.",
-      "id": "2"
-    },
-    {
-      "id": "3",
-      "rating": 2,
-      "text": "Feedback 3 from db.json."
+      "id": "d7b4a770-33a0-4dc0-b0b1-c60ca1ba845b",
+      "rating": 8,
+      "text": "Cool stuff! Updated",
+      "timeStamp": 1642304616416
     }
   ]
 }

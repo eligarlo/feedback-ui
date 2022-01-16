@@ -15,7 +15,12 @@ const FeedbackStats: React.FC = () => {
     [feedbacks]
   )
 
-  const totalAverage = () => (average && isNaN(average) ? 0 : average && average.toFixed(1))
+  const totalAverage = () => {
+    if (average !== undefined) {
+      return isNaN(average) ? 0 : average.toFixed(1)
+    }
+    return 0
+  }
 
   return (
     <div className='feedback-stats'>

@@ -47,6 +47,7 @@ const FeedbackForm: React.FC = () => {
         id: feedbackEdit.edit ? feedbackEdit.feedback.id : uuidv4(),
         rating,
         text,
+        timeStamp: feedbackEdit.edit ? feedbackEdit.feedback.timeStamp : new Date().getTime(),
       }
 
       if (feedbackEdit.edit === false) {
