@@ -87,13 +87,12 @@ export const FeedbackProvider: React.FC<IFeedbackProvider> = ({ children }) => {
     })
 
     const data = await response.json()
-
-    setFeedbacks(
-      feedbacks &&
+    feedbacks &&
+      setFeedbacks(
         feedbacks.map(feedback =>
           feedback.id === updatedFeedback.id ? { ...feedback, ...data } : feedback
         )
-    )
+      )
   }
 
   // Set item to be updated
